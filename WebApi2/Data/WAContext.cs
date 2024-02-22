@@ -10,6 +10,7 @@ namespace WebApi2.Data
         
 
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Order> Pedidos { get; set; }
         public DbSet<User> Users {  get; set; }
     }
 }

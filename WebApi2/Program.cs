@@ -32,9 +32,18 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddDefaultTokenProviders();
 
 
+
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    DataInitializer.SeedRolesAsync(roleManager).Wait();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
