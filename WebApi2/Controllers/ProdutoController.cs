@@ -27,6 +27,16 @@ namespace WebApi2.Controllers
             if(produto == null) return NotFound();
             return Ok(produto);
         }
+
+        [HttpGet]
+        [Route("byname")]
+        public IActionResult GetByName(string nome)
+        {
+            var produto = _context.Produtos.Where(p => p.Nome == nome);
+            if (produto == null) return NotFound();
+            return Ok(produto);
+        }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(Produto produto)
